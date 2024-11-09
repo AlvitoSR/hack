@@ -1,0 +1,59 @@
+ -- famosinho iniciado
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))() 
+               
+--aviso ao executar 
+Fluent:Notify({ Title = "SCRIPT", Content = "Executando..." })
+
+Fluent:Notify({ Title = "SCRIPT", Content = "Executado com sucesso" })
+
+local Window = Fluent:CreateWindow({
+    Title = "Famosinho Hub" .. Fluent.Version,
+    TabWidth = 160, Size = UDim2.fromOffset(580, 460), Theme = "Dark"
+})
+
+local Tabs = {
+    Main = Window:AddTab({ Title = "FARM" }),
+    Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
+}
+--parágrafos
+Tabs.Main:AddParagraph({ Title = "Alvito", Content = "famosinho" })
+
+--botões
+Tabs.Main:AddButton({ Title = "infinite jump", Callback = function()   loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/infjump/main/main"))() end })
+
+--alterador
+
+local Toggle = Tabs.Main:AddToggle("AutoFarm", 
+{
+    Title = "AutoFarm", 
+    Description = "não sei ainda oque ele faz",
+    Default = false, -- esse "," e preciso coloque em qualquer situação 
+    Callback = function(state)
+    if state then
+        Fluent:Notify({ Title = "AutoFarm", Content = "ON" })
+    else
+        Fluent:Notify({ Title = "AutoFarm", Content = "OFF" })
+        end
+    end 
+})
+
+--sliders
+local Slider = Tabs.Main:AddSlider("velocidade", 
+{
+    Title = "Velocidade",
+    Description = "Ajusta a velocidade do jogador",
+    Default = 2,
+    Min = 0,
+    Max = 5,
+    Rounding = 1,
+    Callback = function(Value)
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        local humanoid = character:WaitForChild("Humanoid")
+        
+        -- Define a velocidade de caminhada
+        humanoid.WalkSpeed = Value * 10  -- Multiplica o valor para aumentar o impacto
+    end
+})
+
+--Abrir e Fechar Hub da tela (tecla de atalho)
